@@ -13,14 +13,14 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/admin")
+@RequestMapping("/api/admin")
 @PreAuthorize("hasRole('Admin')")
 public class AdminController {
 
     @Autowired
     private AuthenticationService authenticationService;
 
-    @PostMapping("/registerAdminuser")
+    @PostMapping("/registerAdminUser")
     public ResponseEntity <User> registerAdminUser(@RequestBody RegisterRequestDTO registerRequestDTO){
         return ResponseEntity.ok(authenticationService.registerAdminUser(registerRequestDTO));
     }

@@ -29,6 +29,8 @@ public class User implements UserDetails {
      // spring secu cant usderstand  this string roles
     // we need to wrap up and send as collection
     @Override
+
+    //  this method is essential for Spring Security to know what roles or authorities a user has//
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return roles.stream()    //  string roles coverted in streams
                 .map(SimpleGrantedAuthority::new)  // wrap the roles in Simple grant authority

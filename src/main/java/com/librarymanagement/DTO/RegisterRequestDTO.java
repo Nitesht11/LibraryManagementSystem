@@ -4,6 +4,7 @@ import lombok.Builder;
 import lombok.Data;
 
 @Data
+
 @Builder                                  // lombok (when new regist user it need to deserialize Dto)
 public class RegisterRequestDTO {
 

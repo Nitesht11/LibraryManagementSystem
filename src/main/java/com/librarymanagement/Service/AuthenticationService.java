@@ -4,6 +4,7 @@ import com.librarymanagement.DTO.LoginRequestDTO;
 import com.librarymanagement.DTO.LoginResponseDTO;
 import com.librarymanagement.DTO.RegisterRequestDTO;
 import com.librarymanagement.Entity.User;
+import com.librarymanagement.JWT.JwtService;
 import com.librarymanagement.Respository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -23,16 +24,15 @@ AuthenticationService {
     private PasswordEncoder passwordEncoder;
     @Autowired
     private AuthenticationManager authenticationManager;
-//    @Autowired
-//    private JwtService jwtService;
+   @Autowired
+  private JwtService jwtService;
 
     public User registerNormalUser(RegisterRequestDTO registerRequestDTO) {
         if (userRepository.findByUsername(registerRequestDTO.getUsername()).isPresent()) {
             throw new RuntimeException("user Already registered");
         }
-
         Set<String> roles = new HashSet<String>();
-        roles.add("Role_User");
+        roles.add("ROLE_User");
 
         User user = new User();
         user.setUsername(registerRequestDTO.getUsername());
@@ -49,8 +49,8 @@ AuthenticationService {
 
         }
         Set<String> roles = new HashSet<String>();
-        roles.add("Role_Admin");  // for the admin we r assinging 2 roles admin & user
-        roles.add("Role_User");
+        roles.add("ROLE_Admin");  // for the admin we r assinging 2 roles admin & user
+        roles.add("ROLE_User");
 
 
         User user = new User();
@@ -67,23 +67,20 @@ AuthenticationService {
 
     public LoginResponseDTO login(LoginRequestDTO loginRequestDTO){
         // here we  use auth manager
-
         authenticationManager.authenticate(
-
-                // this things we will authenticate
-                new UsernamePasswordAuthenticationToken(
-                        loginRequestDTO.getUsername(),
-                        loginRequestDTO.getPassword())
-                );
+                // this things we will authenticate the credential//
+                new UsernamePasswordAuthenticationToken(loginRequestDTO.getUsername(), loginRequestDTO.getPassword()));
         User user = userRepository.findByUsername(loginRequestDTO.getUsername())
                 .orElseThrow(()-> new RuntimeException("user Not found"));
 
         // Now fetching the JWT token
-//        String token = jwtService.generateToken(userDetails);
+        String token = jwtService.generateToken(user);
 
 
         return LoginResponseDTO.builder()
-//                .token(token)
-                .username(user.getUsername()).roles(user.getRoles()).build();
+                .token(token)
+                .username(user.getUsername())
+                .roles(user.getRoles())
+                .build();
     }
 }

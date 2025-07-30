@@ -61,7 +61,7 @@ public class IssueRecordService {
         book.setIsAvailable(true);
         bookRepository.save(book);
 
-//        issueRecord.setReturDate(LocalDate.now());
+       issueRecord.setReturnDate(LocalDate.now());
         issueRecord.setIsReturned(true);
 
         return issueRecordRepository.save(issueRecord);
