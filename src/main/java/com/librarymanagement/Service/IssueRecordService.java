@@ -23,9 +23,9 @@ public class IssueRecordService {
     @Autowired
     private UserRepository userRepository;
 
-    public IssueRecord issueTheBook(Long bookId) {
+    public IssueRecord issueTheBook(Long id) {
 
-        Book book = bookRepository.findById(bookId)
+        Book book = bookRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Book not Found"));
         if (book.getQuantity() <= 0 || !book.getIsAvailable()) {
             throw new RuntimeException("book Is Not available");
@@ -49,8 +49,8 @@ public class IssueRecordService {
         bookRepository.save(book);
          return issueRecordRepository.save(issueRecord);
     }
-    public  IssueRecord returnTheBook(long issueRecordId){
-        IssueRecord issueRecord= issueRecordRepository.findById( issueRecordId)
+    public  IssueRecord returnTheBook(long IssueRecordId){
+        IssueRecord issueRecord= issueRecordRepository.findById(IssueRecordId)
         .orElseThrow(()->new RuntimeException("Issue record Not Found"));
 
         if(issueRecord.getIsReturned()){

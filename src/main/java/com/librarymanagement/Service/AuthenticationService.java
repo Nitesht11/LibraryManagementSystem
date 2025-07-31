@@ -32,7 +32,7 @@ AuthenticationService {
             throw new RuntimeException("user Already registered");
         }
         Set<String> roles = new HashSet<String>();
-        roles.add("ROLE_User");
+        roles.add("ROLE_USER");
 
         User user = new User();
         user.setUsername(registerRequestDTO.getUsername());
@@ -49,8 +49,8 @@ AuthenticationService {
 
         }
         Set<String> roles = new HashSet<String>();
-        roles.add("ROLE_Admin");  // for the admin we r assinging 2 roles admin & user
-        roles.add("ROLE_User");
+        roles.add("ROLE_ADMIN");  // for the admin we r assinging 2 roles admin & user
+        roles.add("ROLE_USER");
 
 
         User user = new User();

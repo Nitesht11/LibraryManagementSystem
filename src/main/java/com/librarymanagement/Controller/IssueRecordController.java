@@ -10,13 +10,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/issuerecord")
+@RequestMapping("/api/issuerecord")
 public class IssueRecordController {
 
     @Autowired
     private IssueRecordService issueRecordService;
 
-    @PostMapping("/issuethebook/{bookid}")
+    @PostMapping("/issuethebook/{bookId}")
     public ResponseEntity<IssueRecord> issueTheBook(@PathVariable Long bookId){
 
         return ResponseEntity.ok(issueRecordService.issueTheBook(bookId));

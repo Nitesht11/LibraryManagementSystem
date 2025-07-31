@@ -11,7 +11,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("/books")
+@RequestMapping("/api/books")
 public class BookController {
 
     @Autowired
@@ -20,7 +20,7 @@ public class BookController {
     public ResponseEntity<List<Book>> getAllBooks(){
         return ResponseEntity.ok(bookService.getAllBooks());
     }
-    @GetMapping("/ getBookById")
+    @GetMapping("/ getBookById/{id}")
     public  ResponseEntity <Book> getBookById (@PathVariable Long id){
         return ResponseEntity.ok(bookService.getBookById(id));
     }
